@@ -5,8 +5,6 @@
 <title>Serious Sam | Rocket Jumps</title>
 <link rel="icon" href="icon.png">
 <link rel="preload" as="image" href="background.webp">
-<link rel="preload" as="image" href="walls/vl.png">
-<link rel="preload" as="image" href="walls/vle.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
@@ -26,7 +24,7 @@ body {
 }
 
 .container {
-  max-width: 1400px;
+  max-width: 1300px;
   margin: auto;
   padding: 32px 24px 140px;
 }
@@ -249,6 +247,8 @@ header p {
   text-align: left;
   max-width: 900px;
   margin: auto;
+  position: relative;
+  z-index: 10;
 }
 
 .player {
@@ -269,7 +269,25 @@ header p {
 .player-header {
   color: #9ca3af;
   font-size: 17px;
-  padding: 0 38px 12px;
+  padding: 0 38px 0px;
+  position: relative;
+  z-index: 11;
+  margin-bottom: 22px;
+}
+
+.player-header::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -12px;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(205,205,205,0.65),
+    transparent
+  );
 }
 
 .player-grid {
@@ -351,7 +369,7 @@ Known and verified jumps may be uploaded without a clip.
 <img src="walls/vl.webp">
 
 <details class="box-jumps" data-expand>
-<summary style="padding-left: 20px; padding-bottom: 3px;">Featured Recordings</summary>
+<summary style="padding-left: 20px; padding-bottom: 3px;">Featured Clips</summary>
 
 <details open>
 <summary>▶ 37m VL by Dark</summary>
@@ -387,7 +405,7 @@ Known and verified jumps may be uploaded without a clip.
 <div class="jump-box"><h3>Vertical Express (VLE)</h3><img src="walls/vle.webp">
 
 <details class="box-jumps" data-expand>
-<summary style="padding-left: 20px; padding-bottom: 3px;">Featured Recordings</summary>
+<summary style="padding-left: 20px; padding-bottom: 3px;">Featured Clips</summary>
 
 <details open>
 <summary>▶ 38m VLE by Mask</summary>
@@ -410,7 +428,7 @@ Known and verified jumps may be uploaded without a clip.
 <div class="jump-box"><h3>Not Vertical (NVL)</h3><img src="walls/nvl.webp">
 
 <details class="box-jumps" data-expand>
-<summary style="padding-left: 20px; padding-bottom: 3px;">Featured Recordings</summary>
+<summary style="padding-left: 20px; padding-bottom: 3px;">Featured Clips</summary>
 
 <details open>
 <summary>▶ 41m NVL by Mask</summary>
@@ -452,7 +470,7 @@ Known and verified jumps may be uploaded without a clip.
 <div class="jump-box"><h3>Very Important Edge (V.I.E.)</h3><img src="walls/vie.webp">
 
 <details class="box-jumps" data-expand>
-<summary style="padding-left: 20px; padding-bottom: 3px;">Featured Recordings</summary>
+<summary style="padding-left: 20px; padding-bottom: 3px;">Featured Clips</summary>
 
 <details open>
 <summary>▶ 36m VIE by Mask</summary>
@@ -484,7 +502,7 @@ Known and verified jumps may be uploaded without a clip.
 <div class="jump-box"><h3>Semi Vertical (SVL)</h3><img src="walls/svl.webp">
 
 <details class="box-jumps" data-expand>
-<summary style="padding-left: 20px; padding-bottom: 3px;">Featured Recordings</summary>
+<summary style="padding-left: 20px; padding-bottom: 3px;">Featured Clips</summary>
 
 <details open>
 <summary>▶ 38m SVL by Mask</summary>
@@ -521,7 +539,7 @@ Known and verified jumps may be uploaded without a clip.
 <div class="jump-box active"><h3>Cannon - Vertical (VL)</h3><img src="walls/vlcannon.webp">
 
 <details class="box-jumps" data-expand>
-<summary style="padding-left: 20px; padding-bottom: 3px;">Featured Recordings</summary>
+<summary style="padding-left: 20px; padding-bottom: 3px;">Featured Clips</summary>
 
 <details open>
 <summary>▶ 56m VL by Sandy</summary>
@@ -552,7 +570,7 @@ Known and verified jumps may be uploaded without a clip.
 <div class="jump-box"><h3>Cannon - Vertical Express (VLE)</h3><img src="walls/vlecannon.webp">
 
 <details class="box-jumps" data-expand>
-<summary style="padding-left: 20px; padding-bottom: 3px;">Featured Recordings</summary>
+<summary style="padding-left: 20px; padding-bottom: 3px;">Featured Clips</summary>
 
 <details open>
 <summary>▶ 57m VLE by Dark</summary>
@@ -585,7 +603,7 @@ Known and verified jumps may be uploaded without a clip.
 <div class="jump-box"><h3>Cannon - Not Vertical (NVL)</h3><img src="walls/nvlcannon.webp">
 
 <details class="box-jumps" data-expand>
-<summary style="padding-left: 20px; padding-bottom: 3px;">Featured Recordings</summary>
+<summary style="padding-left: 20px; padding-bottom: 3px;">Featured Clips</summary>
 
 <details open>
 <summary>▶ 58m NVL by Vilkro</summary>
@@ -611,7 +629,7 @@ Known and verified jumps may be uploaded without a clip.
 <div class="jump-box"><h3>Cannon - Very Important Edge (V.I.E.)</h3><img src="walls/viecannon.webp">
 
 <details class="box-jumps" data-expand>
-<summary style="padding-left: 20px; padding-bottom: 3px;">Featured Recordings</summary>
+<summary style="padding-left: 20px; padding-bottom: 3px;">Featured Clips</summary>
 
 <details open>
 <summary>▶ 44m V.I.E. by Dark</summary>
@@ -630,7 +648,7 @@ Known and verified jumps may be uploaded without a clip.
 <div class="jump-box"><h3>Grenade - Not Vertical (NVL)</h3><img src="walls/nvlgrenade.webp">
 
 <details class="box-jumps" data-expand>
-<summary style="padding-left: 20px; padding-bottom: 3px;">Featured Recordings</summary>
+<summary style="padding-left: 20px; padding-bottom: 3px;">Featured Clips</summary>
 
 <details open>
 <summary>▶ 56m NVL by CHN</summary>
@@ -651,7 +669,7 @@ Known and verified jumps may be uploaded without a clip.
 </section>
 
 <section class="players">
-<h1 style="text-align: center; text-shadow: 5px 2px 5px black;">Individual Jumper Videos</h1>
+<h1 style="text-align: center; text-shadow: 5px 2px 5px black;">Player Jump Archive</h1>
 <div class="player-header player-grid">
   <span>Player name</span>
   <span>Best jumps</span>
