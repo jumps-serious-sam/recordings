@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Serious Sam Rocket Jumps</title>
+<link rel="icon" href="icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+html { scrollbar-width: none; }
+html::-webkit-scrollbar { display: none; }
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #e5e7eb;
+  background: url("background.jpg") center / cover no-repeat fixed;
+}
+
+.container {
+  max-width: 1400px;
+  margin: auto;
+  padding: 32px 24px 140px;
+}
+
+/* ===== HEADER ===== */
+header {
+  max-width: 900px;
+  margin: 0 auto 40px;
+  text-align: center;
+}
+header h1 { font-size: 36px; margin-bottom: 12px; }
+header p {
+  text-align: left;
+  color: #cbd5f5;
+  line-height: 1.6;
+}
+
+/* ===== CATEGORIES ===== */
+.categories {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 70px;
+  margin-bottom: 60px;
+}
+.category h2 {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+/* ===== ROTATOR ===== */
+.rotator-wrapper {
+  position: relative;
+  transition: height 0.4s ease;
+}
+.rotator {
+  position: relative;
+  min-height: 360px;
+  perspective: 1400px;
+}
+
+/* ===== JUMP BOX ===== */
+.jump-box {
+  position: absolute;
+  inset: 0;
+  background: rgba(30,30,30,0.78);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 20px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  transform: translateY(30px) scale(0.9) translateZ(-180px);
+  transition: transform 0.7s ease, opacity 0.7s ease;
+  overflow: hidden;
+}
+
+/* IMPORTANT FIX */
+.jump-box.active {
+  position: relative; /* allows height growth */
+  opacity: 1;
+  transform: translateY(-12px) scale(1) translateZ(0);
+  z-index: 3;
+}
+
+.jump-box.prev {
+  opacity: 0.35;
+  transform: translateY(20px) scale(0.95) translateZ(-140px);
+  z-index: 2;
+}
+
+.jump-box.active.expanded {
+  box-shadow: 0 30px 80px rgba(0,0,0,0.85);
+  outline: 1px solid rgba(147,197,253,0.25);
+}
+
+.jump-box h3 {
+  text-align: center;
+  margin: 4px 0 10px;
+}
+
+/* ===== WALL IMAGE ===== */
+.jump-box img {
+  width: 100%;
+  height: 340px;
+  object-fit: contain;
+  margin-bottom: 12px;
+}
+
+/* ===== TOP 5 ===== */
+.box-jumps {
+  background: transparent;
+  padding: 8px 0;
+}
+
+/* Give each jump row its own soft background */
+.box-jumps details {
+  transition: background 0.3s ease;
+  background: rgba(35,35,35,0.85);
+  border-radius: 12px;
+  padding: 10px 12px;
+  margin-top: 10px;
+}
+
+/* Expanded jump gets stronger emphasis */
+.box-jumps details[open] {
+  box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+}
+
+/* Individual jump rows */
+.box-jumps details {
+  border-top: 1px solid rgba(255,255,255,0.12);
+  padding-top: 8px;
+  margin-top: 8px;
+}
+
+.box-jumps details summary {
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+}
+
+.box-jumps video {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: black;
+  border-radius: 10px;
+  margin: 8px 0 4px;
+}
+
+.box-note {
+  font-size: 14px;
+  color: #9ca3af;
+}
+
+/* ===== NOTE SIGNS ===== */
+/* Base sign */
+.sign {
+  display: inline-block;
+  width: 12px;
+  text-align: center;
+}
+
+/* HP LEFT */
+.hp2 { color: #22c55e; opacity: 0.75 }
+.hp3 { color: #22d3ee; opacity: 0.80}
+.hp4 { color: #00ffdd; opacity: 0.85}
+
+/* STEP UP / NEGATIVE */
+.step-up {
+  color: #f59127;
+  opacity: 0.65;
+}
+
+/* ===== MANUAL CONTROLS ===== */
+.control {
+  position: absolute;
+  top: 5px;
+  background: rgba(20,20,20,0.4);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 12px;
+  color: #e5e7eb;
+  padding: 6px 12px;
+  cursor: pointer;
+  z-index: 5;
+}
+.control:hover {
+  background: rgba(40,40,40,0.85);
+}
+.control.left { left: 100px; }
+.control.right { right: 100px; }
+.control.disabled {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.featured-summary {
+  display: flex;
+  align-items: center;
+  padding-left: 18px;
+}
+
+.featured-summary::marker {
+  font-size: 14px;
+}
+
+.featured-title {
+  margin-left: 8px;
+  font-weight: 500;
+  pointer-events: none;
+}
+
+/* ===== PLAYERS ===== */
+.players {
+  text-align: left;
+  max-width: 900px;
+  margin: auto;
+}
+
+.player {
+  background: rgba(30,30,30,0.78);
+  border-radius: 18px;
+  padding: 14px 30px 14px 30px;
+  margin-bottom: 16px;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.player summary {
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 1fr 2fr 130px 30px;
+  gap: 10px;
+}
+
+.player-header {
+  color: #9ca3af;
+  font-size: 17px;
+  padding: 0 38px 12px;
+}
+
+.player-grid {
+  display: grid;
+  grid-template-columns: 30% 40% 30% 24px;
+  align-items: center;
+  gap: 12px;
+  font-size: 17px;
+}
+
+.player summary * {
+  pointer-events: none;
+}
+
+.skill {
+  text-align: left;
+  font-weight: bold;
+}
+
+.arrow {
+  text-align: right;
+  opacity: 0.6;
+  transition: transform 0.5s ease, opacity 0.25s ease;
+}
+
+.player[open] {
+  box-shadow: 0 30px 80px rgba(0,0,0,0.85);
+  outline: 1px solid rgba(147,197,253,0.25);
+}
+
+.player[open] summary {
+  color: #93c5fd;
+  margin-bottom: 10px;
+}
+
+.player-details video {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  margin: 6px 0;
+}
+
+@media (max-width: 1100px) {
+  .categories { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<header>
+<h1 style="text-shadow: 5px 2px 5px black;">Serious Sam Rocket Jump Recordings</h1>
+<p>
+This page presents recorded jump executions performed by players in
+<strong>Serious Sam Classic</strong>.
+It serves as an archive for storing and featuring difficult tricks by jumpers community.
+Clips are recorded by Vilkro, jump demo or video is required to include it here.
+Known and verified jumps may be uploaded without a clip.
+</p>
+</header>
+
+<section class="categories">
+
+<!-- ROCKETS -->
+<div class="category">
+<h2 style="text-shadow: 5px 2px 5px black;">Pure Rocket Jumps</h2>
+<div class="rotator-wrapper">
+<div class="rotator" data-rotator>
+
+<button class="control left">❮</button>
+<button class="control right">❯</button>
+
+<div class="jump-box active">
+<h3>Vertical (VL)</h3>
+<img src="walls/vl.png">
+
+<details class="box-jumps" data-expand>
+<summary style="padding-left: 20px; padding-bottom: 3px;">Featured Recordings</summary>
+
+<details open>
+<summary>▶ 37m VL by Dark</summary>
+<video controls src="videos/dark37vl.mp4"></video>
+<div class="box-note">Notes:</div>
+<div class="box-note">- 3 rockets</div>
+<div class="box-note">- Step up <span class="sign step-up">−</span></div>
+</details>
+
+<details><summary>▶ 36m VL by Mask</summary>
+<video controls src="videos/mask36vl.mp4"></video>
+<div class="box-note">Notes:</div>
+<div class="box-note">- 2 rockets</div>
+</details>
+
+<details><summary>▶ 37m VL by Sandy</summary>
+<video controls src="videos/none.mp4"></video>
+<div class="box-note">Notes:</div>
+<div class="box-note">- 3 rockets</div>
+<div class="box-note">- Step up <span class="sign step-up">−</span></div>
+</details>
+
+<details><summary>▶ 37m VL by Dev</summary>
+<video controls src="videos/none.mp4"></video>
+<div class="box-note">Notes:</div>
+<div class="box-note">- 2 rockets</div>
+<div class="box-note">- Step up <span class="sign step-up">−</span></div>
+</details>
+
+</details>
+</div>
+
+<div class="jump-box"><h3>Vertical Express (VLE)</h3><img src="walls/vle.png">
+
+<details class="box-jumps" data-expand>
+<summary style="padding-left: 20px; padding-bottom: 3px;">Featured Recordings</summary>
+
+<details open>
+<summary>▶ 38m VLE by Mask</summary>
+<video controls src="videos/mask38vle.mp4"></video>
+<div class="box-note">Notes:</div>
+<div class="box-note">- 3 rockets</div>
+</details>
+
+<details><summary>▶ 36m VLE by Dark</summary>
+<video controls src="videos/dark36vle.mp4"></video>
+<div class="box-note">Notes:</div>
+<div class="box-note">- 2 rockets</div>
+<div class="box-note">- 2 HP left <span class="sign hp2">+</span></div>
+</details>
+
+<details><summary>▶</summary></details>
+</details>
+</div>
+
+<div class="jump-box"><h3>Not Vertical (NVL)</h3><img src="walls/nvl.png">
+
+<details class="box-jumps" data-expand>
+<summary style="padding-left: 20px; padding-bottom: 3px;">Featured Recordings</summary>
+
+<details open>
+<summary>▶ 41m NVL by Mask</summary>
+<video controls src="videos/mask41nvl.mp4"></video>
+<div class="box-note">Notes:</div>
+<div class="box-note">- 2 rockets</div>
+<div class="box-note">- 4 HP left <span class="sign hp4">+</span></div>
+</details>
+
+<details><summary>▶ 41m NVL by Dev</summary>
+<video controls src="videos/dev41nvl.mp4"></video>
+<div class="box-note">Notes:</div>
+<div class="box-note">- 2 rockets</div>
+<div class="box-note">- 3 HP left <span class="sign hp3">+</span></div>
+</details>
+
+<details><summary>▶ 40m NVL by CHN</summary>
+<video controls src="videos/chn40nvl.mp4"></video>
+<div class="box-note">Notes:</div>
+<div class="box-note">- 2 rockets</div>
+</details>
+
+<details><summary>▶ 40m NVL by Dark</summary>
+<video controls src="videos/dark40nvl.mp4"></video>
+<div class="box-note">Notes:</div>
+<div class="box-note">- 2 rockets</div>
+</details>
+
+<details><summary>▶ 40m NVL by Vilkro</summary>
+<video controls src="videos/vilkro40nvl.mp4"></video>
+<div class="box-note">Notes:</div>
+<div class="box-note">- 3 rockets</div>
+<div class="box-note">- 3 HP left <span class="sign hp3">+</span></div>
+</details>
+
+</details>
+</div>
+
+<div class="jump-box"><h3>Very Important Edge (V.I.E.)</h3><img src="walls/vie.png">
+
+<details class="box-jumps" data-expand>
+<summary style="padding-left: 20px; padding-bottom: 3px;">Featured Recordings</summary>
+
+<details open>
+<summary>▶ 36m VIE by Mask</summary>
+<video controls src="videos/mask36vie.mp4"></video>
+<div class="box-note">Notes:</div>
+<div class="box-note">- King Style wall</div>
+<div class="box-note">- 2 rockets</div>
+<div class="box-note">- 2 HP left <span class="sign hp2">+</span></div>
+<div class="box-note">- Step up <span class="sign step-up">−</span></div>
+</details>
+
+<details><summary>▶ 35m VIE by Mask</summary>
+<video controls src="videos/nan.mp4"></video>
+<div class="box-note">Step up <span class="sign step-up">−</span></div>
+</details>
+
+<details><summary>▶ 34m VIE by Dev</summary>
+<video controls src="videos/nan.mp4"></video>
+<div class="box-note">Notes:</div>
+<div class="box-note">- God Style wall</div>
+<div class="box-note">- 2 rockets</div>
+<div class="box-note">- 6 HP left <span class="sign hp4">+</span></div>
+<div class="box-note">- Step up <span class="sign step-up">−</span></div>
+</details>
+
+</details>
+</div>
+
+<div class="jump-box"><h3>Semi Vertical (SVL)</h3><img src="walls/svl.png">
+
+<details class="box-jumps" data-expand>
+<summary style="padding-left: 20px; padding-bottom: 3px;">Featured Recordings</summary>
+
+<details open>
+<summary>▶ 38m SVL by Mask</summary>
+<video controls src="videos/mask38svl.mp4"></video>
+<div class="box-note">Notes:</div>
+<div class="box-note">- 2 rockets</div>
+<div class="box-note">- Step up <span class="sign step-up">−</span></div>
+</details>
+
+<details><summary>▶ 37m SVL by Dark</summary>
+<video controls src="videos/dark37svl.mp4"></video>
+<div class="box-note">Notes:</div>
+<div class="box-note">- 3 rockets</div>
+<div class="box-note">- 2 HP left <span class="sign hp2">+</span></div>
+<div class="box-note">- Step up <span class="sign step-up">−</span></div>
+</details>
+
+</details>
+</div>
+
+</div>
+</div>
+</div>
+
+<!-- CANNON -->
+<div class="category">
+<h2 style="text-shadow: 5px 2px 5px black;">Extra High Jumps</h2>
+<div class="rotator-wrapper">
+<div class="rotator" data-rotator>
+
+<button class="control left">❮</button>
+<button class="control right">❯</button>
+
+<div class="jump-box active"><h3>Cannon - Vertical (VL)</h3><img src="walls/vlcannon.png">
+
+<details class="box-jumps" data-expand>
+<summary style="padding-left: 20px; padding-bottom: 3px;">Featured Recordings</summary>
+
+<details open>
+<summary>▶ 56m VL by Sandy</summary>
+<video controls src="videos/sandy56vl.mp4"></video>
+</details>
+
+<details><summary>▶ 56m VL by Dark</summary>
+<video controls src="videos/dark56vl.mp4"></video>
+<div class="box-note">Notes:</div>
+<div class="box-note">- 2 HP left <span class="sign hp2">+</span></div>
+</details>
+
+<details><summary>▶ 56m VL by Dev</summary>
+<video controls src="videos/dev56vl.mp4"></video>
+<div class="box-note">Notes:</div>
+<div class="box-note">- 2 HP left <span class="sign hp2">+</span></div>
+</details>
+
+<details><summary>▶ 56m VL by Vilkro</summary>
+<video controls src="videos/vilkro56vl.mp4"></video>
+</details>
+
+<details><summary>▶ 53m VL by Mask</summary>
+<video controls src="videos/mask53vl.mp4"></video>
+</details>
+
+</div>
+<div class="jump-box"><h3>Cannon - Vertical Express (VLE)</h3><img src="walls/vlecannon.png">
+
+<details class="box-jumps" data-expand>
+<summary style="padding-left: 20px; padding-bottom: 3px;">Featured Recordings</summary>
+
+<details open>
+<summary>▶ 57m VLE by Dark</summary>
+<video controls src="videos/dark57vle.mp4"></video>
+<div class="box-note">Notes:</div>
+<div class="box-note">- 2 HP left <span class="sign hp2">+</span></div>
+</details>
+
+<details><summary>▶ 57m VLE by Vilkro</summary>
+<video controls src="videos/vilkro57vle.mp4"></video>
+<div class="box-note">Notes:</div>
+<div class="box-note">- Step up <span class="sign step-up">−</span></div>
+</details>
+
+<details><summary>▶ 56m VLE by Dark</summary>
+<video controls src="videos/dark56vle.mp4"></video>
+<div class="box-note">Notes:</div>
+<div class="box-note">- Karnak style</div>
+<div class="box-note">- 3 HP left <span class="sign hp3">+</span></div>
+<div class="box-note">- Step up <span class="sign step-up">−</span></div>
+</details>
+
+<details><summary>▶ 56m VLE by Vilkro</summary>
+<video controls src="videos/vilkro56vle.mp4"></video>
+<div class="box-note">Notes:</div>
+<div class="box-note">- 3 HP left <span class="sign hp3">+</span></div>
+</details>
+
+</div>
+<div class="jump-box"><h3>Cannon - Not Vertical (NVL)</h3><img src="walls/nvlcannon.png">
+
+<details class="box-jumps" data-expand>
+<summary style="padding-left: 20px; padding-bottom: 3px;">Featured Recordings</summary>
+
+<details open>
+<summary>▶ 58m NVL by Vilkro</summary>
+<video controls src="videos/vilkro58nvl.mp4"></video>
+</details>
+
+<details><summary>▶ 57m NVL by Dark</summary>
+<video controls src="videos/dark57nvl.mp4"></video>
+</details>
+
+<details><summary>▶ 56m NVL by Vilkro</summary>
+<video controls src="videos/vilkro56nvl.mp4"></video>
+<div class="box-note">Notes:</div>
+<div class="box-note">- 5 HP left <span class="sign hp4">+</span></div>
+</details>
+
+<details><summary>▶ 56m NVL by Vilkro</summary>
+<video controls src="videos/vilkro56nvl2.mp4"></video>
+<div class="box-note">Notes:</div>
+<div class="box-note">- 2 rockets</div>
+</details>
+</div>
+<div class="jump-box"><h3>Cannon - Very Important Edge (V.I.E.)</h3><img src="walls/viecannon.png">
+
+<details class="box-jumps" data-expand>
+<summary style="padding-left: 20px; padding-bottom: 3px;">Featured Recordings</summary>
+
+<details open>
+<summary>▶ 44m V.I.E. by Dark</summary>
+<video controls src="videos/nan.mp4"></video>
+</details>
+
+<details><summary>▶ 44m V.I.E. by Sandy</summary>
+<video controls src="videos/nan.mp4"></video>
+</details>
+</div>
+<div class="jump-box"><h3>Grenade - Not Vertical (NVL)</h3><img src="walls/nvlgrenade.png">
+
+<details class="box-jumps" data-expand>
+<summary style="padding-left: 20px; padding-bottom: 3px;">Featured Recordings</summary>
+
+<details open>
+<summary>▶ 56m NVL by CHN</summary>
+<video controls src="videos/chn56nvl.mp4"></video>
+<div class="box-note">Notes:</div>
+<div class="box-note">- 4 HP left <span class="sign hp4">+</span></div>
+</details>
+
+<details><summary>▶ 40m NVL by Dark</summary>
+<video controls src="videos/nan.mp4"></video>
+</details>
+</div>
+
+</div>
+</div>
+</div>
+
+</section>
+
+<section class="players">
+<h1 style="text-align: center; text-shadow: 5px 2px 5px black;">Individual Jumper Videos</h1>
+<div class="player-header player-grid">
+  <span>Player name</span>
+  <span>Best jumps</span>
+  <span style="padding-left: 70px">Skill level</span>
+  <span></span>
+</div>
+
+<details class="player">
+  <summary class="player-grid">
+    <strong>Dark</strong>
+    <span>56m VL, 57m VLE, 57m NVL, 37m VL</span>
+    <span class="skill">талант</span>
+    <span class="arrow">▾</span>
+  </summary>
+<h3>&nbsp</h3>
+<div class="player-details">
+<h3>56m VL</h3>
+<video controls src="videos/dark56vl.mp4"></video>
+<div class="box-note">2 HP left <span class="sign hp2">+</span></div>
+<h3>&nbsp</h3>
+
+<h3>57m VLE</h3>
+<video controls src="videos/dark57vle.mp4"></video>
+<div class="box-note">2 HP left <span class="sign hp2">+</span></div>
+<h3>&nbsp</h3>
+
+<h3>37m VL</h3>
+<video controls src="videos/dark37vl.mp4"></video>
+<div class="box-note">3 rockets, step up <span class="sign step-up">−</span></div>
+<h3>&nbsp</h3>
+
+<h3>Meteor's complicated jump on Karnak</h3>
+<video controls src="videos/darksupermeteorjump.mp4"></video>
+<h3>&nbsp</h3>
+
+<h3>56m VLE</h3>
+<video controls src="videos/dark56vle.mp4"></video>
+<div class="box-note">3 HP left <span class="sign hp3">+</span>, step up <span class="sign step-up">−</span></div>
+
+</div>
+</details>
+
+<details class="player">
+  <summary class="player-grid">
+    <strong>Mask</strong>
+    <span>38m VLE, 36m V.I.E., 36m VL, 53m VL</span>
+    <span class="skill">повидло</span>
+    <span class="arrow">▾</span>
+  </summary>
+<h3>&nbsp</h3>
+<div class="player-details">
+<h3>36m VL</h3>
+<video controls src="videos/mask36vl.mp4"></video>
+<h3>&nbsp</h3>
+
+<h3>38m VLE</h3>
+<video controls src="videos/mask38vle.mp4"></video>
+<h3>&nbsp</h3>
+
+<h3>36m V.I.E.</h3>
+<video controls src="videos/mask36vie.mp4"></video>
+<div class="box-note">2 HP left <span class="sign hp2">+</span>, step up <span class="sign step-up">−</span></div>
+<h3>&nbsp</h3>
+
+<h3>41m NVL</h3>
+<video controls src="videos/mask41nvl.mp4"></video>
+<div class="box-note">4 HP left <span class="sign hp4">+</span></div>
+<h3>&nbsp</h3>
+
+<h3>53m VL</h3>
+<video controls src="videos/mask53vl.mp4"></video>
+<h3>&nbsp</h3>
+
+<h3>60m VL</h3>
+<video controls src="videos/mask60vl.mp4"></video>
+<div class="box-note">150 health, collision bug</div>
+<h3>&nbsp</h3>
+
+<h3>35m V.I.E.</h3>
+<video controls src="videos/mask35vie.mp4"></video>
+<div class="box-note">King Style wall</div>
+<h3>&nbsp</h3>
+
+<h3>34m V.I.E.</h3>
+<video controls src="videos/mask34vie.mp4"></video>
+<div class="box-note">God Style wall, step up <span class="sign step-up">−</span></div>
+<h3>&nbsp</h3>
+
+</div>
+</details>
+
+<details class="player">
+  <summary class="player-grid">
+    <strong>Meteor</strong>
+    <span>54m NVL, 36m VLE, 42m V.I.E., Object jumps</span>
+    <span class="skill">батька</span>
+    <span class="arrow">▾</span>
+  </summary>
+<h3>&nbsp</h3>
+<div class="player-details">
+<h3>40m VL</h3>
+<video controls src="videos/meteor40vl.mp4"></video>
+<h3>&nbsp</h3>
+
+<h3>42m V.I.E.</h3>
+<video controls src="videos/meteor42vie.mp4"></video>
+<h3>&nbsp</h3>
+
+<h3>Trampolin jump</h3>
+<video controls src="videos/meteortrampolin.mp4"></video>
+<h3>&nbsp</h3>
+
+<h3>54m NVL</h3>
+<video controls src="videos/nan.mp4"></video>
+<h3>&nbsp</h3>
+
+</div>
+</details>
+
+<details class="player">
+  <summary class="player-grid">
+    <strong>Vilkro</strong>
+    <span>56m VL, 58m NVL, 57m VLE</span>
+    <span class="skill">качок</span>
+    <span class="arrow">▾</span>
+  </summary>
+<h3>&nbsp</h3>
+<div class="player-details">
+<h3>56m VL</h3>
+<video controls src="videos/vilkro56vl.mp4"></video>
+<h3>&nbsp</h3>
+
+<h3>58m NVL</h3>
+<video controls src="videos/vilkro58nvl.mp4"></video>
+<h3>&nbsp</h3>
+
+<h3>57m VLE</h3>
+<video controls src="videos/vilkro57vle.mp4"></video>
+<div class="box-note">Step up <span class="sign step-up">−</span></div>
+<h3>&nbsp</h3>
+
+<h3>60m VL with Power Up</h3>
+<video controls src="videos/vilkro60vl.mp4"></video>
+<div class="box-note">200 health, 100 armor, Power up</div>
+<h3>&nbsp</h3>
+
+</div>
+</details>
+
+</section>
+
+</div>
+
+<script>
+document.querySelectorAll('[data-rotator]').forEach(rotator => {
+  const wrapper = rotator.closest('.rotator-wrapper');
+  const boxes = [...rotator.querySelectorAll('.jump-box')];
+  const left = rotator.querySelector('.control.left');
+  const right = rotator.querySelector('.control.right');
+
+  let index = 0;
+  let timer = null;
+  let locked = false;
+
+  function show(i) {
+    boxes.forEach(b => b.classList.remove('active','prev','expanded'));
+    boxes[(i - 1 + boxes.length) % boxes.length].classList.add('prev');
+    boxes[i].classList.add('active');
+    index = i;
+    syncHeight();
+  }
+
+  function syncHeight() {
+    const active = boxes[index];
+    requestAnimationFrame(() => {
+      wrapper.style.height = active.offsetHeight + 'px';
+    });
+  }
+
+  function next() { if (!locked) show((index + 1) % boxes.length); }
+  function prev() { if (!locked) show((index - 1 + boxes.length) % boxes.length); }
+
+  function startTimer() {
+    clearInterval(timer);
+    if (!locked) timer = setInterval(next, 4000);
+  }
+
+  show(0);
+  startTimer();
+
+  rotator.addEventListener('mouseenter', () => clearInterval(timer));
+  rotator.addEventListener('mouseleave', startTimer);
+
+  left.onclick = prev;
+  right.onclick = next;
+
+  boxes.forEach((box, boxIndex) => {
+    const details = box.querySelector('[data-expand]');
+    if (!details) return;
+
+    details.addEventListener('toggle', () => {
+      if (boxIndex !== index) {
+        details.open = false;
+        return;
+      }
+      locked = details.open;
+      box.classList.toggle('expanded', details.open);
+      left.classList.toggle('disabled', locked);
+      right.classList.toggle('disabled', locked);
+      syncHeight();
+      startTimer();
+    });
+  });
+});
+</script>
+
+</body>
+</html>
