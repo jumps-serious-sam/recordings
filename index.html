@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <title>Serious Sam | Rocket Jumps</title>
 <link rel="icon" href="icon.png">
+<link rel="preload" as="image" href="background.webp">
+<link rel="preload" as="image" href="walls/vl.png">
+<link rel="preload" as="image" href="walls/vle.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
@@ -14,7 +17,12 @@ body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
   color: #e5e7eb;
-  background: url("background.jpg") center / cover no-repeat fixed;
+  background-color: #0b0e14;
+  background-image: url("background.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 .container {
@@ -90,13 +98,34 @@ header p {
 }
 
 .jump-box.active.expanded {
-  box-shadow: 0 30px 80px rgba(0,0,0,0.85);
+  box-shadow: 0 20px 20px rgba(0,0,0,0.25);
   outline: 1px solid rgba(147,197,253,0.25);
 }
 
 .jump-box h3 {
   text-align: center;
   margin: 4px 0 10px;
+}
+
+.jump-box .control {
+  position: absolute;
+  top: 14px;
+  background: rgba(20,20,20,0.45);
+  border-radius: 12px;
+  z-index: 4;
+}
+
+.jump-box .control.left {
+  left: 16px;
+}
+
+.jump-box .control.right {
+  right: 16px;
+}
+
+.jump-box:not(.active) .control {
+  pointer-events: none;
+  opacity: 0;
 }
 
 /* ===== WALL IMAGE ===== */
@@ -178,7 +207,7 @@ header p {
 }
 
 /* ===== MANUAL CONTROLS ===== */
-.control {
+.jump-box .control {
   position: absolute;
   top: 5px;
   background: rgba(20,20,20,0.4);
@@ -189,12 +218,12 @@ header p {
   cursor: pointer;
   z-index: 5;
 }
-.control:hover {
+.jump-box .control:hover {
   background: rgba(40,40,40,0.85);
 }
-.control.left { left: 100px; }
-.control.right { right: 100px; }
-.control.disabled {
+.jump-box .control.left { left: 100px; }
+.jump-box .control.right { right: 100px; }
+.jump-box .control.disabled {
   opacity: 0.3;
   pointer-events: none;
 }
@@ -586,7 +615,12 @@ Known and verified jumps may be uploaded without a clip.
 
 <details open>
 <summary>▶ 44m V.I.E. by Dark</summary>
-<video controls src="videos/nan.mp4"></video>
+<video controls src="videos/dark44vie.mp4"></video>
+</details>
+
+<details open>
+<summary>▶ 42m V.I.E. by Meteor</summary>
+<video controls src="videos/meteor42vie.mp4"></video>
 </details>
 
 <details><summary>▶ 44m V.I.E. by Sandy</summary>
@@ -782,11 +816,18 @@ document.querySelectorAll('[data-rotator]').forEach(rotator => {
   let timer = null;
   let locked = false;
 
+  function moveControlsToActive() {
+    const active = boxes[index];
+    active.appendChild(left);
+    active.appendChild(right);
+  }
+  
   function show(i) {
     boxes.forEach(b => b.classList.remove('active','prev','expanded'));
     boxes[(i - 1 + boxes.length) % boxes.length].classList.add('prev');
     boxes[i].classList.add('active');
     index = i;
+    moveControlsToActive();
     syncHeight();
   }
 
