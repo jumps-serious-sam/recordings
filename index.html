@@ -154,6 +154,10 @@ header p {
   color: #9ca3af;
 }
 
+.box-jumps[open] > summary {
+  color: #93c5fd;
+}
+
 /* ===== NOTE SIGNS ===== */
 /* Base sign */
 .sign {
@@ -260,6 +264,10 @@ header p {
   text-align: right;
   opacity: 0.6;
   transition: transform 0.5s ease, opacity 0.25s ease;
+}
+
+body.featured-open .players .arrow {
+  opacity: 0;
 }
 
 .player[open] {
@@ -817,6 +825,7 @@ document.querySelectorAll('[data-rotator]').forEach(rotator => {
       }
       locked = details.open;
       box.classList.toggle('expanded', details.open);
+      document.body.classList.toggle('featured-open', details.open);
       left.classList.toggle('disabled', locked);
       right.classList.toggle('disabled', locked);
       syncHeight();
