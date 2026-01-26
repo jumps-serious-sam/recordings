@@ -16,11 +16,12 @@
 html { scrollbar-width: none; }
 html::-webkit-scrollbar { display: none; }
 
-/* ===== PAGE LOADER ===== */
-#page-loader {
+/* ===== LOADING SCREEN ===== */
+#loader {
   position: fixed;
   inset: 0;
-  background: #0b0e14;
+  background: rgba(5, 5, 5, 0.55); /* transparent */
+  backdrop-filter: blur(3px);
   z-index: 9999;
   display: flex;
   align-items: center;
@@ -28,7 +29,7 @@ html::-webkit-scrollbar { display: none; }
   transition: opacity 0.6s ease, visibility 0.6s ease;
 }
 
-#page-loader.hidden {
+#loader.hidden {
   opacity: 0;
   visibility: hidden;
 }
@@ -36,27 +37,38 @@ html::-webkit-scrollbar { display: none; }
 .loader-content {
   text-align: center;
   color: #e5e7eb;
-  letter-spacing: 0.5px;
+  text-shadow: 0 4px 12px black;
 }
 
-.loader-text {
-  margin-top: 14px;
-  font-size: 15px;
-  opacity: 0.7;
+.loader-content h1 {
+  font-size: 32px;
+  margin-bottom: 10px;
+  color: #f87171; /* red accent */
 }
 
-/* Spinner */
-.spinner {
-  width: 48px;
-  height: 48px;
-  border: 3px solid rgba(255,255,255,0.15);
-  border-top-color: #c24141; /* red accent */
-  border-radius: 50%;
-  animation: spin 0.9s linear infinite;
+.loader-content p {
+  font-size: 14px;
+  opacity: 0.85;
 }
 
-@keyframes spin {
-  to { transform: rotate(360deg); }
+/* animated subtle line */
+.loader-line {
+  width: 120px;
+  height: 2px;
+  margin: 12px auto;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(248,113,113,0.9),
+    transparent
+  );
+  animation: loaderPulse 1.4s infinite;
+}
+
+@keyframes loaderPulse {
+  0% { opacity: 0.2; }
+  50% { opacity: 1; }
+  100% { opacity: 0.2; }
 }
 
 body {
@@ -460,10 +472,11 @@ body.featured-open .players .arrow {
 
 <body>
 
-<div id="page-loader">
+<div id="loader">
   <div class="loader-content">
-    <div class="spinner"></div>
-    <div class="loader-text">Loading jump archive…</div>
+    <h1>Serious Sam Rocket Jumps</h1>
+    <div class="loader-line"></div>
+    <p>Loading the page…</p>
   </div>
 </div>
 
@@ -1036,25 +1049,13 @@ function moveControlsToActive() {
 });
 </script>
 <script>
-/* Stop videos when player section collapses */
-document.querySelectorAll('.player').forEach(player => {
-  player.addEventListener('toggle', () => {
-    if (!player.open) {
-      player.querySelectorAll('video').forEach(v => {
-        v.pause();
-        v.currentTime = 0;
-      });
-    }
-  });
-});
-</script>
-<script>
-window.addEventListener('load', () => {
-  const loader = document.getElementById('page-loader');
-  loader.classList.add('hidden');
+window.addEventListener("load", () => {
+  const loader = document.getElementById("loader");
 
-  // remove from DOM after fade (optional)
-  setTimeout(() => loader.remove(), 700);
+  // Small delay makes the fade feel intentional
+  setTimeout(() => {
+    loader.classList.add("hidden");
+  }, 400);
 });
 </script>
 
