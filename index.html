@@ -2,9 +2,14 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Serious Sam | Rocket Jumps</title>
+<title>Serious Sam - Rocket Jumps</title>
 <link rel="icon" href="icon.png">
 <link rel="preload" as="image" href="background.webp">
+<link rel="preload" as="image" href="walls/vl.webp">
+<link rel="preload" as="image" href="walls/vle.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
@@ -24,7 +29,7 @@ body {
 }
 
 .container {
-  max-width: 1300px;
+  max-width: 1400px;
   margin: auto;
   padding: 32px 24px 140px;
 }
@@ -35,11 +40,73 @@ header {
   margin: 0 auto 40px;
   text-align: center;
 }
-header h1 { font-size: 36px; margin-bottom: 12px; }
+header h1 {
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  margin-bottom: 14px;
+  color: #e5e7eb;
+  text-shadow:
+    0 0 14px rgba(147,197,253,0.18),
+    0 6px 18px rgba(0,0,0,0.7);
+}
+
+header h1 span {
+  color: #ffd8a3;
+}
+
+.header-divider {
+  width: 360px;
+  height: 2px;
+  margin: 16px auto 22px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(248,153,123,0.6),
+    transparent
+  );
+}
+
 header p {
   text-align: left;
   color: #cbd5f5;
   line-height: 1.6;
+}
+
+/* ===== FOOTER ===== */
+.site-footer {
+  margin-top: 120px;
+  padding: 24px 16px;
+  text-align: center;
+  font-size: 14px;
+  color: #9ca3af;
+}
+
+.footer-inner {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding-top: 14px;
+  position: relative;
+}
+
+.footer-inner::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 15%;
+  right: 15%;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255,255,255,0.18),
+    transparent
+  );
+}
+
+.footer-sep {
+  opacity: 0.4;
 }
 
 /* ===== CATEGORIES ===== */
@@ -58,6 +125,7 @@ header p {
 .rotator-wrapper {
   position: relative;
   transition: height 0.4s ease;
+  z-index: 1;
 }
 .rotator {
   position: relative;
@@ -158,7 +226,7 @@ header p {
 .box-jumps details {
   border-top: 1px solid rgba(255,255,255,0.12);
   padding-top: 8px;
-  margin-top: 8px;
+  margin-top: 16px;
 }
 
 .box-jumps details summary {
@@ -183,6 +251,7 @@ header p {
 
 .box-jumps[open] > summary {
   color: #93c5fd;
+  text-shadow: 1px 1px 3px #93c5fd;
 }
 
 /* ===== NOTE SIGNS ===== */
@@ -216,7 +285,7 @@ header p {
   cursor: pointer;
   z-index: 5;
 }
-.jump-box .control:hover {
+.control:hover {
   background: rgba(40,40,40,0.85);
 }
 .jump-box .control.left { left: 100px; }
@@ -267,8 +336,34 @@ header p {
 .player-header {
   color: #9ca3af;
   font-size: 17px;
-  padding: 0 38px 0px
+  padding: 0 38px 0px;
   margin-bottom: 22px;
+}
+
+.player-header h1 {
+  margin: 0;
+  padding-bottom: 12px;
+}
+
+.section-title {
+  display: inline-block;
+  position: relative;
+}
+
+.section-title::after {
+  content: "";
+  position: absolute;
+  left: -300px;
+  right: 0;
+  width: 900px;
+  bottom: -12px;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(205,205,205,0.35),
+    transparent
+  );
 }
 
 .player-grid {
@@ -290,7 +385,7 @@ header p {
 
 .arrow {
   text-align: right;
-  opacity: 0.6;
+  opacity: 0.3;
   transition: transform 0.5s ease, opacity 0.25s ease;
 }
 
@@ -324,7 +419,8 @@ body.featured-open .players .arrow {
 <div class="container">
 
 <header>
-<h1 style="text-shadow: 5px 2px 5px black;">Serious Sam Rocket Jump Recordings</h1>
+<h1 style="text-shadow: 5px 2px 5px black;">Serious Sam <span>Rocket Jumps</span> Collection</h1>
+<div class="header-divider"></div>
 <p>
 This page presents recorded jump executions performed by players in
 <strong>Serious Sam Classic</strong>.
@@ -350,7 +446,7 @@ Known and verified jumps may be uploaded without a clip.
 <img src="walls/vl.webp">
 
 <details class="box-jumps" data-expand>
-<summary style="padding-left: 20px; padding-bottom: 3px;">Featured Clips</summary>
+<summary style="padding-left: 20px; padding-bottom: 3px;">Featured Recordings</summary>
 
 <details open>
 <summary>▶ 37m VL by Dark</summary>
@@ -386,7 +482,7 @@ Known and verified jumps may be uploaded without a clip.
 <div class="jump-box"><h3>Vertical Express (VLE)</h3><img src="walls/vle.webp">
 
 <details class="box-jumps" data-expand>
-<summary style="padding-left: 20px; padding-bottom: 3px;">Featured Clips</summary>
+<summary style="padding-left: 20px; padding-bottom: 3px;">Featured Recordings</summary>
 
 <details open>
 <summary>▶ 38m VLE by Mask</summary>
@@ -409,7 +505,7 @@ Known and verified jumps may be uploaded without a clip.
 <div class="jump-box"><h3>Not Vertical (NVL)</h3><img src="walls/nvl.webp">
 
 <details class="box-jumps" data-expand>
-<summary style="padding-left: 20px; padding-bottom: 3px;">Featured Clips</summary>
+<summary style="padding-left: 20px; padding-bottom: 3px;">Featured Recordings</summary>
 
 <details open>
 <summary>▶ 41m NVL by Mask</summary>
@@ -451,7 +547,7 @@ Known and verified jumps may be uploaded without a clip.
 <div class="jump-box"><h3>Very Important Edge (V.I.E.)</h3><img src="walls/vie.webp">
 
 <details class="box-jumps" data-expand>
-<summary style="padding-left: 20px; padding-bottom: 3px;">Featured Clips</summary>
+<summary style="padding-left: 20px; padding-bottom: 3px;">Featured Recordings</summary>
 
 <details open>
 <summary>▶ 36m VIE by Mask</summary>
@@ -483,7 +579,7 @@ Known and verified jumps may be uploaded without a clip.
 <div class="jump-box"><h3>Semi Vertical (SVL)</h3><img src="walls/svl.webp">
 
 <details class="box-jumps" data-expand>
-<summary style="padding-left: 20px; padding-bottom: 3px;">Featured Clips</summary>
+<summary style="padding-left: 20px; padding-bottom: 3px;">Featured Recordings</summary>
 
 <details open>
 <summary>▶ 38m SVL by Mask</summary>
@@ -520,7 +616,7 @@ Known and verified jumps may be uploaded without a clip.
 <div class="jump-box active"><h3>Cannon - Vertical (VL)</h3><img src="walls/vlcannon.webp">
 
 <details class="box-jumps" data-expand>
-<summary style="padding-left: 20px; padding-bottom: 3px;">Featured Clips</summary>
+<summary style="padding-left: 20px; padding-bottom: 3px;">Featured Recordings</summary>
 
 <details open>
 <summary>▶ 56m VL by Sandy</summary>
@@ -551,7 +647,7 @@ Known and verified jumps may be uploaded without a clip.
 <div class="jump-box"><h3>Cannon - Vertical Express (VLE)</h3><img src="walls/vlecannon.webp">
 
 <details class="box-jumps" data-expand>
-<summary style="padding-left: 20px; padding-bottom: 3px;">Featured Clips</summary>
+<summary style="padding-left: 20px; padding-bottom: 3px;">Featured Recordings</summary>
 
 <details open>
 <summary>▶ 57m VLE by Dark</summary>
@@ -584,7 +680,7 @@ Known and verified jumps may be uploaded without a clip.
 <div class="jump-box"><h3>Cannon - Not Vertical (NVL)</h3><img src="walls/nvlcannon.webp">
 
 <details class="box-jumps" data-expand>
-<summary style="padding-left: 20px; padding-bottom: 3px;">Featured Clips</summary>
+<summary style="padding-left: 20px; padding-bottom: 3px;">Featured Recordings</summary>
 
 <details open>
 <summary>▶ 58m NVL by Vilkro</summary>
@@ -610,16 +706,11 @@ Known and verified jumps may be uploaded without a clip.
 <div class="jump-box"><h3>Cannon - Very Important Edge (V.I.E.)</h3><img src="walls/viecannon.webp">
 
 <details class="box-jumps" data-expand>
-<summary style="padding-left: 20px; padding-bottom: 3px;">Featured Clips</summary>
+<summary style="padding-left: 20px; padding-bottom: 3px;">Featured Recordings</summary>
 
 <details open>
 <summary>▶ 44m V.I.E. by Dark</summary>
-<video controls src="videos/dark44vie.mp4"></video>
-</details>
-
-<details open>
-<summary>▶ 42m V.I.E. by Meteor</summary>
-<video controls src="videos/meteor42vie.mp4"></video>
+<video controls src="videos/nan.mp4"></video>
 </details>
 
 <details><summary>▶ 44m V.I.E. by Sandy</summary>
@@ -629,7 +720,7 @@ Known and verified jumps may be uploaded without a clip.
 <div class="jump-box"><h3>Grenade - Not Vertical (NVL)</h3><img src="walls/nvlgrenade.webp">
 
 <details class="box-jumps" data-expand>
-<summary style="padding-left: 20px; padding-bottom: 3px;">Featured Clips</summary>
+<summary style="padding-left: 20px; padding-bottom: 3px;">Featured Recordings</summary>
 
 <details open>
 <summary>▶ 56m NVL by CHN</summary>
@@ -653,7 +744,7 @@ Known and verified jumps may be uploaded without a clip.
 <h1 style="text-align: center; text-shadow: 5px 2px 5px black;">Player Jump Archive</h1>
 <div class="player-header player-grid">
   <span>Player name</span>
-  <span>Best jumps</span>
+  <span class="section-title">Best jumps</span>
   <span style="padding-left: 70px">Skill level</span>
   <span></span>
 </div>
@@ -745,7 +836,7 @@ Known and verified jumps may be uploaded without a clip.
 <details class="player">
   <summary class="player-grid">
     <strong>Meteor</strong>
-    <span>54m NVL, 36m VLE, 42m V.I.E., Object jumps</span>
+    <span>54m NVL, 36m VLE, 42m V.I.E., various jumps</span>
     <span class="skill">батька</span>
     <span class="arrow">▾</span>
   </summary>
@@ -804,6 +895,14 @@ Known and verified jumps may be uploaded without a clip.
 
 </div>
 
+<footer class="site-footer">
+  <div class="footer-inner">
+    <span>Serious Sam Rocket Jumps Collection</span>
+    <span class="footer-sep">•</span>
+    <span>Community jumps recordings</span>
+  </div>
+</footer>
+
 <script>
 document.querySelectorAll('[data-rotator]').forEach(rotator => {
   const wrapper = rotator.closest('.rotator-wrapper');
@@ -815,18 +914,18 @@ document.querySelectorAll('[data-rotator]').forEach(rotator => {
   let timer = null;
   let locked = false;
 
-  function moveControlsToActive() {
-    const active = boxes[index];
-    active.appendChild(left);
-    active.appendChild(right);
-  }
-  
+function moveControlsToActive() {
+	const active = boxes[index];
+	active.appendChild(left);
+	active.appendChild(right);
+}
+
   function show(i) {
     boxes.forEach(b => b.classList.remove('active','prev','expanded'));
     boxes[(i - 1 + boxes.length) % boxes.length].classList.add('prev');
     boxes[i].classList.add('active');
     index = i;
-    moveControlsToActive();
+	moveControlsToActive();
     syncHeight();
   }
 
@@ -847,7 +946,16 @@ document.querySelectorAll('[data-rotator]').forEach(rotator => {
 
   show(0);
   startTimer();
-
+  
+  function stopVideos(container) {
+	container.querySelectorAll('video').forEach(v => {
+		v.pause();
+		v.currentTime = 0;
+		v.removeAttribute('src'); // optional: frees memory
+		v.load();
+	});	
+  }
+  
   rotator.addEventListener('mouseenter', () => clearInterval(timer));
   rotator.addEventListener('mouseleave', startTimer);
 
@@ -865,10 +973,13 @@ document.querySelectorAll('[data-rotator]').forEach(rotator => {
       }
       locked = details.open;
       box.classList.toggle('expanded', details.open);
-      document.body.classList.toggle('featured-open', details.open);
+	  document.body.classList.toggle('featured-open', details.open);
       left.classList.toggle('disabled', locked);
       right.classList.toggle('disabled', locked);
-      syncHeight();
+	  if (!details.open) {
+		stopVideos(details);
+      }
+	  syncHeight();
       startTimer();
     });
   });
