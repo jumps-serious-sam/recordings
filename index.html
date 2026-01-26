@@ -793,7 +793,7 @@ Known and verified jumps may be included without a clip.
 </details>
 
 <details><summary>▶ 40m NVL by Dark</summary>
-<video controls src="videos/nan.mp4"></video>
+<video controls src="videos/dark40grenade.mp4"></video>
 </details>
 </div>
 
@@ -1014,8 +1014,6 @@ function moveControlsToActive() {
 	container.querySelectorAll('video').forEach(v => {
 		v.pause();
 		v.currentTime = 0;
-		v.removeAttribute('src'); // optional: frees memory
-		v.load();
 	});	
   }
   
