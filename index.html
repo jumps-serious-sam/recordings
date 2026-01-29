@@ -194,6 +194,7 @@ header p {
   inset: 0;
   background: rgba(30,30,30,0.78);
   border: 1px solid rgba(255,255,255,0.08);
+  outline: 1px solid rgba(147,197,253,0.25);
   border-radius: 18px;
   padding: 18px;
   display: flex;
@@ -220,7 +221,6 @@ header p {
 
 .jump-box.active.expanded {
   box-shadow: 0 20px 20px rgba(0,0,0,0.25);
-  outline: 1px solid rgba(147,197,253,0.25);
 }
 
 .jump-box h3 {
@@ -265,16 +265,12 @@ header p {
 
 /* Give each jump row its own soft background */
 .box-jumps details {
-  transition: background 0.3s ease;
-  background: rgba(35,35,35,0.85);
-  border-radius: 12px;
-  padding: 10px 12px;
+  padding: 0 12px;
   margin-top: 10px;
 }
 
 /* Expanded jump gets stronger emphasis */
 .box-jumps details[open] {
-  box-shadow: 0 12px 40px rgba(0,0,0,0.2);
 }
 
 /* Individual jump rows */
@@ -377,8 +373,8 @@ header p {
   background: rgba(30,30,30,0.78);
   border-radius: 10px;
   padding: 14px 30px 14px 30px;
-  margin-bottom: 16px;
-  border: 1px solid rgba(255,255,255,0.08);
+  margin-bottom: 6px;
+  border: 1px solid rgba(147,197,253,0.25);
 }
 
 .player summary {
@@ -465,8 +461,110 @@ body.featured-open .players .arrow {
 }
 
 @media (max-width: 1100px) {
-  .categories { grid-template-columns: 1fr; }
+  .categories {
+    grid-template-columns: 1fr;
+    gap: 90px;
+  }
+
+  .jump-box img {
+    height: 280px;
+  }
+
+  .player-grid {
+    grid-template-columns: 35% 45% 20% 24px;
+    font-size: 16px;
+  }
 }
+
+@media (max-width: 768px) {
+
+  /* Header */
+  header h1 {
+    font-size: 30px;
+  }
+
+  .header-divider {
+    width: 220px;
+  }
+
+  /* Rotator */
+  .rotator {
+    min-height: 300px;
+  }
+
+  .jump-box {
+    padding: 14px;
+  }
+
+  .jump-box img {
+    height: 220px;
+    object-fit: cover;
+    object-position: center;
+    margin-bottom: 10px;
+  }
+
+  /* Controls closer to center */
+  .jump-box .control.left {
+    left: 20px;
+  }
+  .jump-box .control.right {
+    right: 20px;
+  }
+
+  /* Featured recordings text */
+  .box-jumps details summary {
+    font-size: 15px;
+  }
+
+  /* PLAYER LIST */
+  .player {
+    padding: 14px 18px;
+  }
+
+  .player-grid {
+    position: relative;
+    grid-template-columns: 1fr;
+    row-gap: 6px;
+  }
+
+  .arrow {
+    position: absolute;
+    right: 0;
+    top: 4px;
+    grid-row: auto;
+    opacity: 0.4;
+  }
+
+  .player-grid span:nth-child(2),
+  .player-grid span:nth-child(3) {
+    font-size: 14px;
+    opacity: 0.85;
+  }
+
+  /* Videos */
+  .player-details video {
+    border-radius: 8px;
+  }
+
+  /* Footer */
+  .site-footer {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    background-attachment: scroll;
+  }
+}
+
+@media (max-width: 768px) {
+  #loader {
+    backdrop-filter: none;
+    background: rgba(5,5,5,0.75);
+  }
+}
+
 </style>
 </head>
 
@@ -488,7 +586,7 @@ body.featured-open .players .arrow {
 <p>
 This page presents jump records by the players of 
 <strong>Serious Sam Classic</strong>.
-Clips are recorded by Vilkro, jump demo<br>or video is required to upload it here.
+Clips are recorded by Vilkro, jump demo or video is required to upload it here.
 Known and verified jumps may be included without a clip.
 </p>
 </header>
@@ -1046,6 +1144,29 @@ function moveControlsToActive() {
   });
 });
 </script>
+
+<script>
+document.querySelectorAll('.rotator').forEach(rotator => {
+  let startX = 0;
+  let endX = 0;
+
+  rotator.addEventListener('touchstart', e => {
+    startX = e.touches[0].clientX;
+  }, { passive: true });
+
+  rotator.addEventListener('touchend', e => {
+    endX = e.changedTouches[0].clientX;
+    const diff = startX - endX;
+
+    if (Math.abs(diff) > 50) {
+      const left = rotator.querySelector('.control.left');
+      const right = rotator.querySelector('.control.right');
+      diff > 0 ? right.click() : left.click();
+    }
+  });
+});
+</script>
+
 <script>
 window.addEventListener("load", () => {
   const loader = document.getElementById("loader");
