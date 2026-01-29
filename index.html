@@ -484,6 +484,11 @@ body.featured-open .players .arrow {
 
 @media (max-width: 768px) {
 
+  body {
+	background-image: url("background-mobile.webp");
+	background-attachment: fixed;
+  }
+  
   /* Header */
   header h1 {
     font-size: 30px;
@@ -526,7 +531,7 @@ body.featured-open .players .arrow {
   .player-grid {
     position: relative;
     grid-template-columns: 1fr 1fr auto;
-    column-gap: 12px;
+    column-gap: 2px;
     row-gap: 6px;
   }
   
@@ -562,12 +567,6 @@ body.featured-open .players .arrow {
   /* Footer */
   .site-footer {
     font-size: 13px;
-  }
-}
-
-@media (max-width: 768px) {
-  body {
-    background-attachment: scroll;
   }
 }
 
