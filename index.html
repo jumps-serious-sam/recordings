@@ -267,9 +267,8 @@ header p {
   padding: 8px 0;
 }
 
-/* Give each jump row its own soft background */
 .box-jumps details {
-  padding: 0 12px;
+  padding: 12px 0 0 12px;
   margin-top: 10px;
 }
 
@@ -280,7 +279,7 @@ header p {
 /* Individual jump rows */
 .box-jumps details {
   border-top: 1px solid rgba(255,255,255,0.12);
-  padding-top: 8px;
+  padding-top: 12px;
   margin-top: 16px;
 }
 
@@ -289,6 +288,7 @@ header p {
   cursor: pointer;
   display: flex;
   justify-content: space-between;
+  padding-left: 8px;
 }
 
 .box-jumps video {
@@ -460,6 +460,14 @@ body.featured-open .players .arrow {
   margin-bottom: 10px;
 }
 
+.player-details {
+  padding-bottom: 16px;
+}
+
+.player-details h3 {
+  padding-top: 20px;
+}
+
 .player-details video {
   width: 100%;
   aspect-ratio: 16 / 9;
@@ -530,13 +538,16 @@ body.featured-open .players .arrow {
 
   .player-grid {
     position: relative;
-	align-items: center;
-    column-gap: 12px;
+    grid-template-columns: 0fr 0fr auto;
+    column-gap: 2px;
     row-gap: 6px;
+	gap: 0;
   }
   
-  .skill {
+  .player-grid .skill {
     text-align: right;
+    font-size: 14px;
+    opacity: 0.8;
   }
   
   .player-header {
@@ -620,27 +631,27 @@ Known and verified jumps may be included without a clip.
 <summary style="padding-left: 20px; padding-bottom: 3px;">Featured Recordings</summary>
 
 <details open>
-<summary>▶ 37m VL by Dark</summary>
+<summary>37m VL by Dark</summary>
 <video controls src="videos/dark37vl.mp4"></video>
 <div class="box-note">Notes:</div>
 <div class="box-note">- 3 rockets</div>
 <div class="box-note">- Step up <span class="sign step-up">−</span></div>
 </details>
 
-<details><summary>▶ 36m VL by Mask</summary>
+<details><summary>36m VL by Mask</summary>
 <video controls src="videos/mask36vl.mp4"></video>
 <div class="box-note">Notes:</div>
 <div class="box-note">- 2 rockets</div>
 </details>
 
-<details><summary>▶ 37m VL by Sandy</summary>
+<details><summary>37m VL by Sandy</summary>
 <video controls src="videos/none.mp4"></video>
 <div class="box-note">Notes:</div>
 <div class="box-note">- 3 rockets</div>
 <div class="box-note">- Step up <span class="sign step-up">−</span></div>
 </details>
 
-<details><summary>▶ 37m VL by Dev</summary>
+<details><summary>37m VL by Dev</summary>
 <video controls src="videos/none.mp4"></video>
 <div class="box-note">Notes:</div>
 <div class="box-note">- 2 rockets</div>
@@ -656,13 +667,13 @@ Known and verified jumps may be included without a clip.
 <summary style="padding-left: 20px; padding-bottom: 3px;">Featured Recordings</summary>
 
 <details open>
-<summary>▶ 38m VLE by Mask</summary>
+<summary>38m VLE by Mask</summary>
 <video controls src="videos/mask38vle.mp4"></video>
 <div class="box-note">Notes:</div>
 <div class="box-note">- 3 rockets</div>
 </details>
 
-<details><summary>▶ 36m VLE by Dark</summary>
+<details><summary>36m VLE by Dark</summary>
 <video controls src="videos/dark36vle.mp4"></video>
 <div class="box-note">Notes:</div>
 <div class="box-note">- 2 rockets</div>
@@ -679,33 +690,33 @@ Known and verified jumps may be included without a clip.
 <summary style="padding-left: 20px; padding-bottom: 3px;">Featured Recordings</summary>
 
 <details open>
-<summary>▶ 41m NVL by Mask</summary>
+<summary>41m NVL by Mask</summary>
 <video controls src="videos/mask41nvl.mp4"></video>
 <div class="box-note">Notes:</div>
 <div class="box-note">- 2 rockets</div>
 <div class="box-note">- 4 HP left <span class="sign hp4">+</span></div>
 </details>
 
-<details><summary>▶ 41m NVL by Dev</summary>
+<details><summary>41m NVL by Dev</summary>
 <video controls src="videos/dev41nvl.mp4"></video>
 <div class="box-note">Notes:</div>
 <div class="box-note">- 2 rockets</div>
 <div class="box-note">- 3 HP left <span class="sign hp3">+</span></div>
 </details>
 
-<details><summary>▶ 40m NVL by CHN</summary>
+<details><summary>40m NVL by CHN</summary>
 <video controls src="videos/chn40nvl.mp4"></video>
 <div class="box-note">Notes:</div>
 <div class="box-note">- 2 rockets</div>
 </details>
 
-<details><summary>▶ 40m NVL by Dark</summary>
+<details><summary>40m NVL by Dark</summary>
 <video controls src="videos/dark40nvl.mp4"></video>
 <div class="box-note">Notes:</div>
 <div class="box-note">- 2 rockets</div>
 </details>
 
-<details><summary>▶ 40m NVL by Vilkro</summary>
+<details><summary>40m NVL by Vilkro</summary>
 <video controls src="videos/vilkro40nvl.mp4"></video>
 <div class="box-note">Notes:</div>
 <div class="box-note">- 3 rockets</div>
@@ -721,7 +732,7 @@ Known and verified jumps may be included without a clip.
 <summary style="padding-left: 20px; padding-bottom: 3px;">Featured Recordings</summary>
 
 <details open>
-<summary>▶ 36m VIE by Mask</summary>
+<summary>36m VIE by Mask</summary>
 <video controls src="videos/mask36vie.mp4"></video>
 <div class="box-note">Notes:</div>
 <div class="box-note">- King Style wall</div>
@@ -730,12 +741,12 @@ Known and verified jumps may be included without a clip.
 <div class="box-note">- Step up <span class="sign step-up">−</span></div>
 </details>
 
-<details><summary>▶ 35m VIE by Mask</summary>
+<details><summary>35m VIE by Mask</summary>
 <video controls src="videos/nan.mp4"></video>
 <div class="box-note">Step up <span class="sign step-up">−</span></div>
 </details>
 
-<details><summary>▶ 34m VIE by Dev</summary>
+<details><summary>34m VIE by Dev</summary>
 <video controls src="videos/nan.mp4"></video>
 <div class="box-note">Notes:</div>
 <div class="box-note">- God Style wall</div>
@@ -753,14 +764,14 @@ Known and verified jumps may be included without a clip.
 <summary style="padding-left: 20px; padding-bottom: 3px;">Featured Recordings</summary>
 
 <details open>
-<summary>▶ 38m SVL by Mask</summary>
+<summary>38m SVL by Mask</summary>
 <video controls src="videos/mask38svl.mp4"></video>
 <div class="box-note">Notes:</div>
 <div class="box-note">- 2 rockets</div>
 <div class="box-note">- Step up <span class="sign step-up">−</span></div>
 </details>
 
-<details><summary>▶ 37m SVL by Dark</summary>
+<details><summary>37m SVL by Dark</summary>
 <video controls src="videos/dark37svl.mp4"></video>
 <div class="box-note">Notes:</div>
 <div class="box-note">- 3 rockets</div>
@@ -790,27 +801,27 @@ Known and verified jumps may be included without a clip.
 <summary style="padding-left: 20px; padding-bottom: 3px;">Featured Recordings</summary>
 
 <details open>
-<summary>▶ 56m VL by Sandy</summary>
+<summary>56m VL by Sandy</summary>
 <video controls src="videos/sandy56vl.mp4"></video>
 </details>
 
-<details><summary>▶ 56m VL by Dark</summary>
+<details><summary>56m VL by Dark</summary>
 <video controls src="videos/dark56vl.mp4"></video>
 <div class="box-note">Notes:</div>
 <div class="box-note">- 2 HP left <span class="sign hp2">+</span></div>
 </details>
 
-<details><summary>▶ 56m VL by Dev</summary>
+<details><summary>56m VL by Dev</summary>
 <video controls src="videos/dev56vl.mp4"></video>
 <div class="box-note">Notes:</div>
 <div class="box-note">- 2 HP left <span class="sign hp2">+</span></div>
 </details>
 
-<details><summary>▶ 56m VL by Vilkro</summary>
+<details><summary>56m VL by Vilkro</summary>
 <video controls src="videos/vilkro56vl.mp4"></video>
 </details>
 
-<details><summary>▶ 53m VL by Mask</summary>
+<details><summary>53m VL by Mask</summary>
 <video controls src="videos/mask53vl.mp4"></video>
 </details>
 
@@ -821,19 +832,19 @@ Known and verified jumps may be included without a clip.
 <summary style="padding-left: 20px; padding-bottom: 3px;">Featured Recordings</summary>
 
 <details open>
-<summary>▶ 57m VLE by Dark</summary>
+<summary>57m VLE by Dark</summary>
 <video controls src="videos/dark57vle.mp4"></video>
 <div class="box-note">Notes:</div>
 <div class="box-note">- 2 HP left <span class="sign hp2">+</span></div>
 </details>
 
-<details><summary>▶ 57m VLE by Vilkro</summary>
+<details><summary>57m VLE by Vilkro</summary>
 <video controls src="videos/vilkro57vle.mp4"></video>
 <div class="box-note">Notes:</div>
 <div class="box-note">- Step up <span class="sign step-up">−</span></div>
 </details>
 
-<details><summary>▶ 56m VLE by Dark</summary>
+<details><summary>56m VLE by Dark</summary>
 <video controls src="videos/dark56vle.mp4"></video>
 <div class="box-note">Notes:</div>
 <div class="box-note">- Karnak style</div>
@@ -841,7 +852,7 @@ Known and verified jumps may be included without a clip.
 <div class="box-note">- Step up <span class="sign step-up">−</span></div>
 </details>
 
-<details><summary>▶ 56m VLE by Vilkro</summary>
+<details><summary>56m VLE by Vilkro</summary>
 <video controls src="videos/vilkro56vle.mp4"></video>
 <div class="box-note">Notes:</div>
 <div class="box-note">- 3 HP left <span class="sign hp3">+</span></div>
@@ -854,21 +865,21 @@ Known and verified jumps may be included without a clip.
 <summary style="padding-left: 20px; padding-bottom: 3px;">Featured Recordings</summary>
 
 <details open>
-<summary>▶ 58m NVL by Vilkro</summary>
+<summary>58m NVL by Vilkro</summary>
 <video controls src="videos/vilkro58nvl.mp4"></video>
 </details>
 
-<details><summary>▶ 57m NVL by Dark</summary>
+<details><summary>57m NVL by Dark</summary>
 <video controls src="videos/dark57nvl.mp4"></video>
 </details>
 
-<details><summary>▶ 56m NVL by Vilkro</summary>
+<details><summary>56m NVL by Vilkro</summary>
 <video controls src="videos/vilkro56nvl.mp4"></video>
 <div class="box-note">Notes:</div>
 <div class="box-note">- 5 HP left <span class="sign hp4">+</span></div>
 </details>
 
-<details><summary>▶ 56m NVL by Vilkro</summary>
+<details><summary>56m NVL by Vilkro</summary>
 <video controls src="videos/vilkro56nvl2.mp4"></video>
 <div class="box-note">Notes:</div>
 <div class="box-note">- 2 rockets</div>
@@ -880,11 +891,11 @@ Known and verified jumps may be included without a clip.
 <summary style="padding-left: 20px; padding-bottom: 3px;">Featured Recordings</summary>
 
 <details open>
-<summary>▶ 44m V.I.E. by Dark</summary>
+<summary>44m V.I.E. by Dark</summary>
 <video controls src="videos/nan.mp4"></video>
 </details>
 
-<details><summary>▶ 44m V.I.E. by Sandy</summary>
+<details><summary>44m V.I.E. by Sandy</summary>
 <video controls src="videos/nan.mp4"></video>
 </details>
 </div>
@@ -894,13 +905,13 @@ Known and verified jumps may be included without a clip.
 <summary style="padding-left: 20px; padding-bottom: 3px;">Featured Recordings</summary>
 
 <details open>
-<summary>▶ 56m NVL by CHN</summary>
+<summary>56m NVL by CHN</summary>
 <video controls src="videos/chn56nvl.mp4"></video>
 <div class="box-note">Notes:</div>
 <div class="box-note">- 4 HP left <span class="sign hp4">+</span></div>
 </details>
 
-<details><summary>▶ 40m NVL by Dark</summary>
+<details><summary>40m NVL by Dark</summary>
 <video controls src="videos/dark40grenade.mp4"></video>
 </details>
 </div>
@@ -927,26 +938,21 @@ Known and verified jumps may be included without a clip.
     <span class="skill">талант</span>
     <span class="arrow">▾</span>
   </summary>
-<h3>&nbsp</h3>
 <div class="player-details">
 <h3>56m VL</h3>
 <video controls src="videos/dark56vl.mp4"></video>
 <div class="box-note">2 HP left <span class="sign hp2">+</span></div>
-<h3>&nbsp</h3>
 
 <h3>57m VLE</h3>
 <video controls src="videos/dark57vle.mp4"></video>
 <div class="box-note">2 HP left <span class="sign hp2">+</span></div>
-<h3>&nbsp</h3>
 
 <h3>37m VL</h3>
 <video controls src="videos/dark37vl.mp4"></video>
 <div class="box-note">3 rockets, step up <span class="sign step-up">−</span></div>
-<h3>&nbsp</h3>
 
 <h3>Meteor's complicated jump on Karnak</h3>
 <video controls src="videos/darksupermeteorjump.mp4"></video>
-<h3>&nbsp</h3>
 
 <h3>56m VLE</h3>
 <video controls src="videos/dark56vle.mp4"></video>
@@ -962,44 +968,35 @@ Known and verified jumps may be included without a clip.
     <span class="skill">повидло</span>
     <span class="arrow">▾</span>
   </summary>
-<h3>&nbsp</h3>
 <div class="player-details">
 <h3>36m VL</h3>
 <video controls src="videos/mask36vl.mp4"></video>
-<h3>&nbsp</h3>
 
 <h3>38m VLE</h3>
 <video controls src="videos/mask38vle.mp4"></video>
-<h3>&nbsp</h3>
 
 <h3>36m V.I.E.</h3>
 <video controls src="videos/mask36vie.mp4"></video>
 <div class="box-note">2 HP left <span class="sign hp2">+</span>, step up <span class="sign step-up">−</span></div>
-<h3>&nbsp</h3>
 
 <h3>41m NVL</h3>
 <video controls src="videos/mask41nvl.mp4"></video>
 <div class="box-note">4 HP left <span class="sign hp4">+</span></div>
-<h3>&nbsp</h3>
 
 <h3>53m VL</h3>
 <video controls src="videos/mask53vl.mp4"></video>
-<h3>&nbsp</h3>
 
 <h3>60m VL</h3>
 <video controls src="videos/mask60vl.mp4"></video>
 <div class="box-note">150 health, collision bug</div>
-<h3>&nbsp</h3>
 
 <h3>35m V.I.E.</h3>
 <video controls src="videos/mask35vie.mp4"></video>
 <div class="box-note">King Style wall</div>
-<h3>&nbsp</h3>
 
 <h3>34m V.I.E.</h3>
 <video controls src="videos/mask34vie.mp4"></video>
 <div class="box-note">God Style wall, step up <span class="sign step-up">−</span></div>
-<h3>&nbsp</h3>
 
 </div>
 </details>
@@ -1011,23 +1008,18 @@ Known and verified jumps may be included without a clip.
     <span class="skill">батька</span>
     <span class="arrow">▾</span>
   </summary>
-<h3>&nbsp</h3>
 <div class="player-details">
 <h3>40m VL</h3>
 <video controls src="videos/meteor40vl.mp4"></video>
-<h3>&nbsp</h3>
 
 <h3>42m V.I.E.</h3>
 <video controls src="videos/meteor42vie.mp4"></video>
-<h3>&nbsp</h3>
 
 <h3>Trampolin jump</h3>
 <video controls src="videos/meteortrampolin.mp4"></video>
-<h3>&nbsp</h3>
 
 <h3>54m NVL</h3>
 <video controls src="videos/nan.mp4"></video>
-<h3>&nbsp</h3>
 
 </div>
 </details>
@@ -1039,25 +1031,20 @@ Known and verified jumps may be included without a clip.
     <span class="skill">качок</span>
     <span class="arrow">▾</span>
   </summary>
-<h3>&nbsp</h3>
 <div class="player-details">
 <h3>56m VL</h3>
 <video controls src="videos/vilkro56vl.mp4"></video>
-<h3>&nbsp</h3>
 
 <h3>58m NVL</h3>
 <video controls src="videos/vilkro58nvl.mp4"></video>
-<h3>&nbsp</h3>
 
 <h3>57m VLE</h3>
 <video controls src="videos/vilkro57vle.mp4"></video>
 <div class="box-note">Step up <span class="sign step-up">−</span></div>
-<h3>&nbsp</h3>
 
 <h3>60m VL with Power Up</h3>
 <video controls src="videos/vilkro60vl.mp4"></video>
 <div class="box-note">200 health, 100 armor, Power up</div>
-<h3>&nbsp</h3>
 
 </div>
 </details>
